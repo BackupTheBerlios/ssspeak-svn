@@ -1,0 +1,87 @@
+<!ENTITY prefs.title  "Speech Preferences">
+
+<!ENTITY label.general  "General Settings">
+<!ENTITY label.apply  "Apply">
+<!ENTITY label.debug  "Debugging">
+<!ENTITY label.skip  "Skipp Settings (seconds)">
+<!ENTITY label.setting  "Settings">
+<!ENTITY label.festival  "Festival Settings">
+<!ENTITY label.synthesizer.voices  "Synthesizer Default Voice">
+
+<!ENTITY label.synthesizer  "Synthesizer">
+<!ENTITY label.synthesizer.read  "Reader Settings">
+<!ENTITY label.synthesizer.read.tip  "Voice used for reading HTML pages">
+<!ENTITY label.synthesizer.announce  "Voice Announcement Settings">
+<!ENTITY label.synthesizer.announce.tip  "Voice used for vocal announcement such as page loading progress, key press, etc.">
+<!ENTITY label.synthesizer.volume  "Speak Volume">
+<!ENTITY label.synthesizer.speed  "Speaking Speed">
+<!ENTITY label.sounds  "Sounds">
+<!ENTITY label.sounds.assignment  "Sound Assignment">
+<!ENTITY label.preview  "Previewing">
+
+<!ENTITY label.codeformat  "Code Editor">
+
+<!ENTITY prefs.enableSpeak	"Start speaking automatically when web page is loaded">
+<!ENTITY prefs.enableSpeak.tip	"Page synthesis will start as soon as page load has completed">
+
+<!ENTITY prefs.debug.keepFiles	"Do not delete temporary files (debug)">
+<!ENTITY prefs.debug.keepFiles.tip	"Do not delete temporary files">
+
+<!ENTITY prefs.debug.showJavaConsole	"Show the Java console (debug)">
+<!ENTITY prefs.debug.showJavaConsole.tip	"Show the Java console on startup">
+
+<!ENTITY prefs.skip.skip0	"Small skip value">
+<!ENTITY prefs.skip.skip0.tip	"value in seconds of a small skip (Control-Shift-left/right arrow)">
+<!ENTITY prefs.skip.skip1	"Medium skip value">
+<!ENTITY prefs.skip.skip1.tip	"value in seconds of a medium skip (Control-Shift-up/down arrow)">
+<!ENTITY prefs.skip.skip2	"Large skip value">
+<!ENTITY prefs.skip.skip2.tip	"value in seconds of a large skip (Control-Shift-PgUp/PgDn)">
+
+
+<!ENTITY prefs.synthesizer.volume.low	"Very Low">
+<!ENTITY prefs.synthesizer.volume.soft	"Low">
+<!ENTITY prefs.synthesizer.volume.medium	"Normal">
+<!ENTITY prefs.synthesizer.volume.loud	"Loud">
+<!ENTITY prefs.synthesizer.volume.x-loud	"Very Loud">
+
+<!ENTITY prefs.synthesizer.speed.x-fast	"Very Fast">
+<!ENTITY prefs.synthesizer.speed.fast	"Fast">
+<!ENTITY prefs.synthesizer.speed.medium	"Normal">
+<!ENTITY prefs.synthesizer.speed.slow	"Slow">
+<!ENTITY prefs.synthesizer.speed.x-slow	"Very Slow">
+
+<!ENTITY prefs.sounds.assignment.internalLink	"Links inside current page">
+<!ENTITY prefs.sounds.assignment.internalLink.tip "Sound to play when internal link (e.g. #Introduction) is reached">
+<!ENTITY prefs.sounds.assignment.relativeLink	"Links to same site">
+<!ENTITY prefs.sounds.assignment.relativeLink.tip "Sound to play when relative link (e.g. href=../dog.html) is reached">
+<!ENTITY prefs.sounds.assignment.externalLink	"Links to external sites">
+<!ENTITY prefs.sounds.assignment.externalLink.tip "Sound to play when relative link (e.g. href=http://www.example.com) is reached">
+<!ENTITY prefs.sounds.assignment.endOfPage	"End of page reached">
+<!ENTITY prefs.sounds.assignment.endOfPage.tip	"Sound to play when end of page is reached">
+<!ENTITY prefs.sounds.assignment.seekStart	"Speak position seek waiting">
+<!ENTITY prefs.sounds.assignment.seekStart.tip	"Sound to play repeatedly during a pending skip operation">
+
+
+
+<!ENTITY prefs.enableListen	"Activate the speech command recognizer">
+<!ENTITY prefs.enableKeyboardEcho	"Activate key press feadback">
+<!ENTITY prefs.enableKeyboardEcho.tip	"Activate key press voice feadback">
+<!ENTITY prefs.ssspeakDir  "Location of the external ssspeak root directory">
+<!ENTITY prefs.dumpSavePath  "Location to save MP3 speach dumps">
+<!ENTITY prefs.dumpSavePath.tip  "Save path for HTML page MP3 dumps">
+<!ENTITY prefs.liveSessionsMax  "Max speach sessions history">
+<!ENTITY prefs.liveSessionsMax.tip  "Max speach sessions to remember - older session will be deleted when browser location changes">
+<!ENTITY prefs.sayRepeatDelay  "Repeat delay (miliseconds) for voice feadback">
+<!ENTITY prefs.sayRepeatDelay.tip  "Voice announcements of page loading state (e.g. 'loading') will not be repeated more often than this value (miliseconds)">
+
+<!ENTITY prefs.festival.prog "Location of the 'festival' executable">
+<!ENTITY prefs.festival.prog.tip "Path to the 'festival' executable (leave empty to use 'festival' from system search path)">
+<!ENTITY prefs.festival.lib "Override festival script library path">
+<!ENTITY prefs.festival.lib.tip "the entered path will override the festival executable's default library path">
+<!ENTITY prefs.festival.dir "Specify festival base directory">
+<!ENTITY prefs.festival.dir.tip "If festival basse dir is specified here, and lib, prog above are left empty, DIR/bin/festival end DIR/lib will be used respectively">
+<!ENTITY prefs.festival.cygwin "Festival is a cygwin executable (ignored under Linux)">
+<!ENTITY prefs.festival.cygwin.tip "On windows, this should be set if the festival program is a cygwin executable. This value is ignored under Linux">
+<!ENTITY prefs.festival.procPoolSize "Festival process pool size (improve response time)">
+<!ENTITY prefs.festival.procPoolSize.tip "Number of pre-executed, ready-to-use festival process. Can improve latency, but may take more memory">
+

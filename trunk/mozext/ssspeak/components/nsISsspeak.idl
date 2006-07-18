@@ -1,0 +1,18 @@
+#include "nsISupports.idl"
+
+[scriptable, uuid(4c5034ad-2efd-4443-98c4-532a13c21b52)]
+interface nsISsspeak : nsISupports {
+  /**
+   * pass the 'java' plugin handler
+   * @param java an nsISuppors with  wrappedJSObject = java
+   */
+  void init(in nsISupports java, in string ssspeakDir);
+  /**
+   * holder of the Java Voice instance (via its wrappedJSObject)
+   */
+  readonly attribute nsISupports voice;
+  /**
+   * holder of the Java Conf instance (via its wrappedJSObject)
+   */
+  readonly attribute nsISupports conf;
+};

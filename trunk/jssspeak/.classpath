@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="**/*AJ.java|**/*Testt.java|**/trace/|lib/jtidy-04aug2000r7-dev/src/" kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/aspectjrt.jar"/>
+	<classpathentry kind="lib" path="/usr/share/java/junit.jar"/>
+	<classpathentry kind="lib" path="lib/jtidy-04aug2000r7-dev/build/Tidy.jar"/>
+	<classpathentry kind="lib" path="/usr/share/java/log4j-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/jsapi.jar">
+		<attributes>
+			<attribute value="jar:file:/home/tshalif/src/ws/sspeak/jssspeak/doc/jsapi-doc.zip!/" name="javadoc_location"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/xalan2.jar"/>
+	<classpathentry kind="lib" path="lib/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="lib/xml-apis.jar"/>
+	<classpathentry kind="lib" path="lib/serializer.jar"/>
+	<classpathentry kind="output" path="build/class"/>
+</classpath>

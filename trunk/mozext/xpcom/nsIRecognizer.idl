@@ -1,0 +1,25 @@
+#include "nsISupports.idl"
+
+
+interface nsIRecState;
+
+typedef sequence<string> StringList;
+
+/**
+ * The uuid is a unique number identifying the interface normally
+ * called IID. It can be generated as follows:
+ *
+ * Windows: guidgen.exe
+ * Unix: uuidgen which comes with e2fsprogs package
+ * Mac: ???
+ * All platform: Using irc, connect to irc.mozilla.org and type in
+ *				/join #mozilla
+ *				/msg mozbot uuid
+ *
+ */
+[scriptable, uuid(1c5f30f7-b736-4055-aea4-6291a8e8df09)]
+interface nsIRecognizer : nsISupports {
+  void addVocabulary(in StringList words);
+  void removeVocabulary(in StringList words);
+  void recognize(inout nsIRecState recState);
+};

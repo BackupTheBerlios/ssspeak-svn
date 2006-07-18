@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!DOCTYPE window SYSTEM "chrome://ssspeak/locale/ssspeakPrefs.dtd">
+
+  <dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    id="ssspeak-pref-window"
+    title="&prefs.title;"
+    buttons="accept,extra1,cancel"
+    buttonlabelextra1="&label.apply;"
+    onload="initPrefDialog()"
+    ondialogaccept="return acceptPrefDialog()"
+    ondialogextra1="acceptPrefDialog()">
+
+    <script type="application/x-javascript" src="chrome://ssspeak/content/scripts/utilities.js"/>
+    <script type="application/x-javascript" src="chrome://ssspeak/content/scripts/prefs.js"/>
+    <script type="application/x-javascript" src="chrome://ssspeak/content/ssspeakPrefs.js"/>
+    
+    <script type="application/x-javascript">
+      <![CDATA[
+      const gDefaultSoundDir = buildPath(getExtensionPath("ssspeak", true), ["sounds"]);
+      var gLastSoundDir = gDefaultSoundDir;
+
+      function chooseWavFile(button) {
+      var file = fileBrowse("open", gLastSoundDir, null, [["Wav Files", "WAV"]]);
+      
+      if (file) {
+      gLastSoundDir = file.parent;
+
+      button.parentNode.getElementsByTagName('textbox')[0].value = file.path;
+      }
+      }
+
+      function playWavFile(button) {
+      var file = button.parentNode.getElementsByTagName('textbox')[0].value;
+      
+      if (file) {
+      if (file.split("/").length == 1) {
+      file = gDefaultSoundDir.path + "/" + file;
+      }
+      getVoice().sound(file, false).play();
+      }
+      }
+      ]]>
+    </script>         
+
+    <tabbox flex="1" id="pref-tabs">
+      <tabs>
+	<tab label="&label.general;" selected="true"/>
+	<tab label="&label.synthesizer;"/>
+	<tab label="&label.sounds;"/>
+	<tab label="&label.festival;"/>
+      </tabs>
+      <tabpanels flex="1">
+	<tabpanel id="main" orient="vertical">
+	  <groupbox flex="1">
+	    <caption label="&label.setting;"/>
+	    <grid>
+	      <columns>
+		<column/>
+		<column flex="1"/>
+	      </columns>
+	      <rows>
+		<row>
+		  <label value="&prefs.dumpSavePath;" tooltiptext="&prefs.dumpSavePath.tip;" control="dumpSavePath" /><textbox id="dumpSavePath"/>
+		</row>
+		<row>
+		  <label value="&prefs.liveSessionsMax;" tooltiptext="&prefs.liveSessionsMax.tip;" control="liveSessionsMax" /><textbox tooltiptext="&prefs.liveSessionsMax.tip;" id="liveSessionsMax" preftype="int"/>
+		</row>
+		<row>
+		  <label value="&prefs.sayRepeatDelay;" tooltiptext="&prefs.sayRepeatDelay.tip;" control="sayRepeatDelay" /><textbox tooltiptext="&prefs.sayRepeatDelay.tip;" id="sayRepeatDelay" preftype="int"/>
+		</row>
+	      </rows>
+	    </grid>
+	    <seperator />
+	    <!-- <checkbox id="codewrap" label="&prefs.codewrap;"/> -->
+	    <checkbox id="enableSpeak" tooltiptext="&prefs.enableSpeak.tip;" label="&prefs.enableSpeak;"/>
+	    <!-- 	    <checkbox id="enableListen" label="&prefs.enableListen;"/> -->
+	    <checkbox id="enableKeyboardEcho" label="&prefs.enableKeyboardEcho;" tooltiptext="&prefs.enableKeyboardEcho.tip;"/>
+	  </groupbox>
+	  <groupbox flex="1">
+	    <caption label="&label.skip;"/>
+	    <grid>
+	      <columns>
+		<column/>
+		<column flex="1"/>
+	      </columns>
+	      <rows>
+		<row>
+		  <label value="&prefs.skip.skip0;" tooltiptext="&prefs.skip.skip0.tip;" control="skip.skip0" /><textbox tooltiptext="&prefs.skip.skip0.tip;" id="skip.skip0" preftype="int"/>
+		</row>
+		<row>
+		  <label value="&prefs.skip.skip1;" tooltiptext="&prefs.skip.skip1.tip;" control="skip.skip1" /><textbox tooltiptext="&prefs.skip.skip1.tip;" id="skip.skip1" preftype="int"/>
+		</row>
+		<row>
+		  <label value="&prefs.skip.skip2;" tooltiptext="&prefs.skip.skip2.tip;" control="skip.skip2" /><textbox tooltiptext="&prefs.skip.skip2.tip;" id="skip.skip2" preftype="int"/>
+		</row>
+	      </rows>
+	    </grid>
+	  </groupbox>
+	  <groupbox flex="1">
+	    <caption label="&label.debug;"/>
+	    <checkbox id="debug.keepFiles" label="&prefs.debug.keepFiles;" tooltiptext="&prefs.debug.keepFiles.tip;"/>
+	    <checkbox id="debug.showJavaConsole" label="&prefs.debug.showJavaConsole;" tooltiptext="&prefs.debug.showJavaConsole.tip;"/>
+	  </groupbox>
+	</tabpanel>
+	<tabpanel id="synthesizer" orient="vertical">
+	  <groupbox>
+	    <caption label="&label.synthesizer.read;" tooltiptext="&label.synthesizer.read.tip;"/>
+	    <groupbox>
+	      <caption label="&label.synthesizer.volume;"/>
+	      
+	      <menulist id="synthesizer.voice.read.volume" flex="1">
+		<menupopup>
+		  <menuitem label="&prefs.synthesizer.volume.x-loud;" value="x-loud"/>     
+		  <menuitem label="&prefs.synthesizer.volume.loud;" value="loud"/>     
+		  <menuitem label="&prefs.synthesizer.volume.medium;" value="medium"/>     
+		  <menuitem label="&prefs.synthesizer.volume.soft;" value="soft"/>     
+		  <menuitem label="&prefs.synthesizer.volume.low;" value="low"/>     
+		</menupopup>
+	      </menulist>
+	    </groupbox>
+	    <groupbox>
+	      <caption label="&label.synthesizer.speed;"/>
+	      <menulist id="synthesizer.voice.read.speed">
+		<menupopup>
+		  <menuitem label="&prefs.synthesizer.speed.x-fast;" value="x-fast"/>     
+		  <menuitem label="&prefs.synthesizer.speed.fast;" value="fast"/>     
+		  <menuitem label="&prefs.synthesizer.speed.medium;" value="medium"/>     
+		  <menuitem label="&prefs.synthesizer.speed.slow;" value="slow"/>     
+		  <menuitem label="&prefs.synthesizer.speed.x-slow;" value="x-slow"/>     
+		</menupopup>
+	      </menulist>
+	    </groupbox>
+	    <groupbox>
+	      <caption label="&label.synthesizer.voices;"/>
+	      <menulist id="synthesizer.voice.read">
+		<menupopup>
+		  <menuitem label="default" value="default"/>
+		</menupopup>
+	      </menulist>
+	    </groupbox>
+	  </groupbox>
+	  <groupbox>
+	    <caption label="&label.synthesizer.announce;" tooltiptext="&label.synthesizer.announce.tip;"/>
+	    <groupbox>
+	      <caption label="&label.synthesizer.volume;"/>
+	      
+	      <menulist id="synthesizer.voice.announce.volume" flex="1">
+		<menupopup>
+		  <menuitem label="&prefs.synthesizer.volume.x-loud;" value="x-loud"/>     
+		  <menuitem label="&prefs.synthesizer.volume.loud;" value="loud"/>     
+		  <menuitem label="&prefs.synthesizer.volume.medium;" value="medium"/>     
+		  <menuitem label="&prefs.synthesizer.volume.soft;" value="soft"/>     
+		  <menuitem label="&prefs.synthesizer.volume.low;" value="low"/>     
+		</menupopup>
+	      </menulist>
+	    </groupbox>
+	    <groupbox>
+	      <caption label="&label.synthesizer.speed;"/>
+	      <menulist id="synthesizer.voice.announce.speed">
+		<menupopup>
+		  <menuitem label="&prefs.synthesizer.speed.x-fast;" value="x-fast"/>     
+		  <menuitem label="&prefs.synthesizer.speed.fast;" value="fast"/>     
+		  <menuitem label="&prefs.synthesizer.speed.medium;" value="medium"/>     
+		  <menuitem label="&prefs.synthesizer.speed.slow;" value="slow"/>     
+		  <menuitem label="&prefs.synthesizer.speed.x-slow;" value="x-slow"/>     
+		</menupopup>
+	      </menulist>
+	    </groupbox>
+	    <groupbox>
+	      <caption label="&label.synthesizer.voices;"/>
+	      <menulist id="synthesizer.voice.announce">
+		<menupopup id="voices">
+		  <menuitem label="default" value="default"/>
+		</menupopup>
+	      </menulist>
+	    </groupbox>
+	  </groupbox>
+	</tabpanel>
+	<tabpanel id="sounds" orient="vertical">
+	  <groupbox flex="1">
+	    <caption label="&label.sounds.assignment;"/>
+	    <grid>
+	      <columns>
+		<column/>
+		<column flex="1"/>
+		<column/>
+		<column/>
+	      </columns>
+	      <rows>
+		<row>
+		  <label value="&prefs.sounds.assignment.internalLink;" tooltiptext="&prefs.sounds.assignment.internalLink.tip;" control="sounds.assignment.internalLink" /><textbox tooltiptext="&prefs.sounds.assignment.internalLink.tip;" id="sounds.assignment.internalLink"/><button tooltiptext="&prefs.sounds.assignment.internalLink.tip;" image="chrome://ssspeak/skin/file.png" oncommand="chooseWavFile(this);"/><button image="chrome://ssspeak/skin/speak.png" oncommand="playWavFile(this);"/>
+
+		</row>
+		<row>
+		  <label value="&prefs.sounds.assignment.relativeLink;" tooltiptext="&prefs.sounds.assignment.relativeLink.tip;" control="sounds.assignment.relativeLink" /><textbox tooltiptext="&prefs.sounds.assignment.relativeLink.tip;"  id="sounds.assignment.relativeLink"/><button image="chrome://ssspeak/skin/file.png" oncommand="chooseWavFile(this);"/><button image="chrome://ssspeak/skin/speak.png" oncommand="playWavFile(this);"/> 
+		</row>
+		<row>
+		  <label value="&prefs.sounds.assignment.externalLink;" tooltiptext="&prefs.sounds.assignment.externalLink.tip;" control="sounds.assignment.externalLink" /><textbox tooltiptext="&prefs.sounds.assignment.externalLink.tip;" id="sounds.assignment.externalLink"/><button image="chrome://ssspeak/skin/file.png" oncommand="chooseWavFile(this);"/><button image="chrome://ssspeak/skin/speak.png" oncommand="playWavFile(this);"/> 
+		</row>
+		<row>
+		  <label value="&prefs.sounds.assignment.endOfPage;" tooltiptext="&prefs.sounds.assignment.endOfPage.tip;" control="sounds.assignment.endOfPage" /><textbox tooltiptext="&prefs.sounds.assignment.endOfPage.tip;" id="sounds.assignment.endOfPage"/><button image="chrome://ssspeak/skin/file.png" oncommand="chooseWavFile(this);"/><button image="chrome://ssspeak/skin/speak.png" oncommand="playWavFile(this);"/> 
+		</row>
+		<row>
+		  <label value="&prefs.sounds.assignment.seekStart;" tooltiptext="&prefs.sounds.assignment.seekStart.tip;" control="sounds.assignment.seekStart" /><textbox tooltiptext="&prefs.sounds.assignment.seekStart.tip;" id="sounds.assignment.seekStart"/><button image="chrome://ssspeak/skin/file.png" oncommand="chooseWavFile(this);"/><button image="chrome://ssspeak/skin/speak.png" oncommand="playWavFile(this);"/> 
+		</row>
+	      </rows>
+	    </grid>
+	  </groupbox>
+	</tabpanel>
+	<tabpanel id="festival" orient="vertical">
+	  <groupbox flex="1">
+	    <caption label="&label.festival;"/>
+	    <grid>
+	      <columns>
+		<column/>
+		<column flex="1"/>
+	      </columns>
+	      <rows>
+		<row>
+		  <label value="&prefs.festival.prog;" tooltiptext="&prefs.festival.prog.tip;" control="festival.prog" /><textbox tooltiptext="&prefs.festival.prog.tip;" id="festival.prog"/>
+		</row>
+		<row>
+		  <label value="&prefs.festival.lib;" tooltiptext="&prefs.festival.lib.tip;" control="festival.lib" /><textbox tooltiptext="&prefs.festival.lib.tip;" id="festival.lib"/>
+		</row>
+		<row>
+		  <label value="&prefs.festival.dir;" tooltiptext="&prefs.festival.dir.tip;"  control="festival.dir" /><textbox tooltiptext="&prefs.festival.dir.tip;" id="festival.dir"/>
+		</row>
+		<row>
+		  <label value="&prefs.festival.procPoolSize;" tooltiptext="&prefs.festival.procPoolSize.tip;" control="festival.procPoolSize" /><textbox id="festival.procPoolSize" tooltiptext="&prefs.festival.procPoolSize.tip;" preftype="int"/>
+		</row>
+		<row>
+		  <checkbox id="festival.cygwin" label="&prefs.festival.cygwin;" tooltiptext="&prefs.festival.cygwin.tip;"/>
+		</row>
+	      </rows>
+	    </grid>
+	  </groupbox>
+	</tabpanel>
+      </tabpanels>
+    </tabbox>
+  </dialog>
+  <!-- Keep this comment at the end of the file
+  Local variables:
+  mode: xml
+  sgml-omittag:nil
+  sgml-shorttag:nil
+  sgml-namecase-general:nil
+  sgml-general-insert-case:lower
+  sgml-minimize-attributes:nil
+  sgml-always-quote-attributes:t
+  sgml-indent-step:2
+  sgml-indent-data:t
+  sgml-parent-document:nil
+  sgml-exposed-tags:nil
+  sgml-local-catalogs:("/etc/sgml/catalog" "/usr/share/xemacs21/xemacs-packages/etc/psgml-dtds/CATALOG")
+  sgml-local-ecat-files:("ECAT" "~/sgml/ECAT" "/usr/share/sgml/ECAT" "/usr/local/share/sgml/ECAT" "/usr/local/lib/sgml/ECAT")
+  End:
+  -->

@@ -1,0 +1,38 @@
+<!ENTITY zipdump.width "45em">
+<!ENTITY zipdump.height "28em">
+
+
+<!ENTITY zipdump.title "Zipdump Wizard">
+<!ENTITY zipdump.page1.title "Download Wikipedia XML dump">
+<!ENTITY zipdump.page1.IfYouHaveAlreadyDownloaded "(If you have already downloaded the Wikipedia XML dump, skip to the next step)">
+<!ENTITY zipdump.page1.youNeedToDownloadWikipediaXML "You need to first download an XML dump of wikipedia: ">
+<!ENTITY zipdump.page1.youProbablyWantThisDownload "You probably want this download">
+<!ENTITY zipdump.page1.recommendedDownload "enwiki-latest-pages-meta-current.xml.bz2">
+<!ENTITY zipdump.page1.recommendedDownloadURL "http://download.wikimedia.org/enwiki/latest/enwiki-latest-pages-meta-current.xml.bz2">
+
+<!ENTITY zipdump.page2.title "Specify File Location">
+<!ENTITY zipdump.page2.whereIsLocalCopyOfWikipediaXMLDump "Where is the local copy of the Wikipedia XML dump file (e.g. pages_current.xml.bz)?">
+
+<!ENTITY zipdump.page2.dumppath "Input Path">
+<!ENTITY zipdump.page2.zippath "Output Path">
+
+
+<!ENTITY zipdump.dumpoptions.title "Set Dump Options">
+<!ENTITY zipdump.dumpoptions.group.filters "Dump Filters">
+<!ENTITY zipdump.dumpoptions.group.compression "Compression Level">
+
+
+<!ENTITY zipdump.page4.title "Zipedia ZIP Dump in Progress..">
+<!ENTITY zipdump.page4.ThisMayTakeAwhile "(This may take awhile. Make sure you have enough memory and disk space)">
+<!ENTITY zipdump.page4.Note "Note:">
+<!ENTITY zipdump.page4.DumpProcessMayTakeLonger "Dump process may take longer then initial estimate, depending on original Wikipedia XML dump size and available computer memory">
+
+<!ENTITY zipdump.common.Search "Search">
+
+<!ENTITY zipdump.options.zip.skipTalk "Don't dump any Talk pages">
+<!ENTITY zipdump.options.zip.skipUser "Don't dump User pages">
+<!ENTITY zipdump.options.zip.skipImage "Don't dump Image descriptor pages">
+<!ENTITY zipdump.options.zip.best "Best Compression (slower)">
+<!ENTITY zipdump.options.zip.speed "Faster Compression (bigger file)">
+<!ENTITY zipdump.options.zip.default "Default Compression">
+

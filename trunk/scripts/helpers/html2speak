@@ -1,0 +1,113 @@
+#! /bin/sh
+
+cd $(dirname $0)
+
+export TMPDIR=/home/tshalif/scratch/tmp
+export TEMP=/home/tshalif/scratch/tmp
+export TMP=/home/tshalif/scratch/tmp
+
+usage="usage: $0 [-linklog <link-log> -base <url> -provider <provider>] <url>"
+
+usage () {
+    echo 1>&2 $usage
+    exit 1
+}
+provider=
+pids=
+link_log=
+
+while test -n "$1"; do
+    case "$1" in
+        -provider) shift; provider=$1;;
+        -base) shift; baseurl=$1;;
+        -linklog) shift; link_log=$1;;
+        -*) usage;;
+        *) break;;
+    esac
+        
+    shift
+done
+
+link_log=${link_log:-/dev/null}
+
+baseurl=${baseurl:-$(echo $1 | sed 's,^\(\(http\|ftp\|file\):/*[^/]*\).*$,\1,')}
+relurl=$(dirname $1)
+
+test $# -eq 1 || usage
+
+finish () {
+    rm -f *.$$
+    test -n "$pids" && kill $pids
+}
+
+dotidy () {
+tidy --quiet yes --show-warnings no -asxml --indent auto --enclose-text yes --logical-emphasis true --quote-nbsp no --output-encoding utf8 --output-xml yes --wrap no $1 | sed 's,xmlns=\"http://www.w3.org/1999/xhtml\",,'
+}
+
+getHtml () {
+    wget --base=$baseurl --convert-links --output-document=html2speak-wget.html.$$ --quiet $1
+}
+
+prepHtml () {
+    if test -n "$provider"; then
+        xsltproc  --nonet --novalid --html ../xsl/${provider}2html.xml $1 2> /dev/null
+    else
+        cat $1
+    fi
+}
+
+html2ssml () {
+    xsltproc --novalid  --nonet --html ../xsl/html2ssml.xml $1 2> /dev/null
+}
+
+html2linkmap () {
+    eval $(xsltproc --novalid  --nonet --html ../xsl/html2links.xml $1 2> /dev/null)
+
+    i=0
+
+    while test $i -lt ${#events[@]}; do
+        url=${events[$i]}
+        
+        echo $url | egrep -e '^/' >& /dev/null && events[$i]=${baseurl}${url}
+        echo $url | egrep -e '^\.' >& /dev/null && events[$i]=${relurl}/${url}
+        let i++
+    done
+}
+
+ssml2sable () {
+    xsltproc  ../xsl/ssml2sable.xml $1
+}
+
+trap finish 0
+
+getHtml $1 
+dotidy html2speak-wget.html.$$ > html2speak-tidy.html.$$
+prepHtml html2speak-tidy.html.$$ > html2speak.html.$$
+html2linkmap html2speak.html.$$
+
+html2ssml html2speak.html.$$ > html2speak.ssml.$$
+ssml2sable html2speak.ssml.$$ > html2speak.sable.$$
+
+test -e html2speak.fifo.$$ || mkfifo html2speak.fifo.$$
+
+event_pipe=html2speak.fifo.$$
+
+eventloop () {
+    while true; do
+        read event < $event_pipe
+
+        if test -n "$event"; then
+            echo 1>&2 $event
+            linkid=$(echo $event | awk -F: '{print $2}')
+            echo 1>&2 $linkid
+            echo LINK:${events[$linkid]} >> $link_log
+        fi
+
+    done
+}
+
+eventloop &
+
+pids="$pids $!"
+
+./sable2speak html2speak.sable.$$ $event_pipe

@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+
+<overlay id="ssspeakOverlay" 
+  xmlns:html="http://www.w3.org/1999/xhtml"  
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+
+  <script type="application/x-javascript" src="chrome://ssspeak/content/scripts/utilities.js"/>
+  <script type="application/x-javascript" src="chrome://ssspeak/content/scripts/prefs.js"/>
+  <script type="application/x-javascript" src="chrome://ssspeak/content/ssspeakPrefs.js"/>
+  <script type="application/x-javascript" src="chrome://ssspeak/content/ssspeakUtils.js"/>
+  <script type="application/x-javascript" src="chrome://ssspeak/content/keyboard.js"/>
+  <script type="application/x-javascript" src="chrome://ssspeak/content/ssspeak.js"/>
+
+  <popup id="contentAreaContextMenu">
+    <menuseparator id="speak-separator"/>
+    <menu id="speak-menu" label="Speak" accesskey="s">
+      <menupopup>
+	<menuitem id="context-speak-auto-speak" command="cmdToggleAutoSpeak" label="Auto-speak" accesskey="a"  type="checkbox"/>
+	<menuitem id="context-speak-keyboard-echo" command="cmdToggleKeyboardEcho" label="Keyboard-echo" accesskey="k"  type="checkbox"/>
+      </menupopup>
+    </menu>
+  </popup>
+
+  <command id="cmdBula" oncommand="alert('cmdBula');" enabled="false"/>
+
+  <toolbox id="navigator-toolbox">
+
+
+    <command id="cmdSpeak" oncommand="SynthManager.speak();" disabled="false"/>
+    <command id="cmdDump" oncommand="Mp3Dump.dump(true);" disabled="false"/>
+    <command id="cmdSpeakToggle" oncommand="SynthManager.toggleSpeak();" disabled="false"/>
+    <command id="cmdToggleKeyboardEcho" oncommand="menuCheckboxToggle('context-speak-keyboard-echo', 'enableKeyboardEcho')"/>
+    <command id="cmdToggleAutoSpeak" oncommand="menuCheckboxToggle('context-speak-auto-speak', 'enableSpeak')"/>
+    <commandset id="cmdsAvailableWhenSpeaking">
+      <command id="cmdPause" oncommand="SynthManager.pause();" disabled="true"/>
+      <command id="cmdResume" oncommand="SynthManager.resume();" disabled="true"/>
+      <command id="cmdSkip" oncommand="SynthManager.skip(GetIntPref('skip.skip0'));" disabled="true"/>
+      <command id="cmdSkipmore" oncommand="SynthManager.skip(GetIntPref('skip.skip1'));" disabled="true"/>
+      <command id="cmdSkipmuch" oncommand="SynthManager.skip(GetIntPref('skip.skip2'));" disabled="true"/>
+      <command id="cmdSkipback" oncommand="SynthManager.skip(GetIntPref('skip.skip0') * -1);" disabled="true"/>
+      <command id="cmdSkipbackmore" oncommand="SynthManager.skip(GetIntPref('skip.skip1') * -1);" disabled="true"/>
+      <command id="cmdSkipbackmuch" oncommand="SynthManager.skip(GetIntPref('skip.skip2') * -1);" disabled="true"/>
+      <command id="cmdPauseToggle" oncommand="SynthManager.togglePause();" disabled="true"/>
+      <command id="cmdFollowLink" oncommand="SynthManager['follow link']();" disabled="true"/>
+      <command id="cmdStop" oncommand="SynthManager.stop();" disabled="true"/>
+    </commandset>
+
+    <keyset id="ksGlobalKeyset">
+      <key id="keySpeakToggle"  key="s" modifiers="accel,shift" command="cmdSpeakToggle"/>
+      <key id="keyPauseToggle"  key="p" modifiers="accel,shift" command="cmdPauseToggle"/>
+      <key id="keySkip" keycode="VK_RIGHT" modifiers="shift,accel" command="cmdSkip"/>
+      <key id="keySkipmore" keycode="VK_DOWN" modifiers="accel,shift" command="cmdSkipmore"/>
+      <key id="keySkipmuch" keycode="VK_PAGE_DOWN" modifiers="accel,shift" command="cmdSkipmuch"/>
+      <key id="keySkipback" keycode="VK_LEFT" modifiers="accel,shift" command="cmdSkipback"/>
+      <key id="keySkipbackmore" keycode="VK_UP" modifiers="accel,shift" command="cmdSkipbackmore"/>
+      <key id="keySkipbackmuch" keycode="VK_PAGE_UP" modifiers="accel,shift" command="cmdSkipbackmuch"/>
+    </keyset>
+
+
+    <toolbar id="ssspeaktoolbar" 
+      persist="collapsed,hidden"
+      hidden="false"
+      inherits="hidden"
+      toolbarname="Ssspeak Toolbar (Ctrl-F11)"
+      accesskey="T"
+      context="toolbar-context-menu"
+      customizable="false" 
+      pack="start">
+
+      <toolbarbutton command="cmdSpeak" image="chrome://ssspeak/skin/speak.png" class="ssspeak-item" label="Speak"/>
+      <toolbarbutton command="cmdSkipback" image="chrome://ssspeak/skin/player_rew.png" class="ssspeak-item" label="Rewind"/>
+<!--       <toolbarbutton command="cmdFollowLink" image="chrome://ssspeak/skin/down.png" class="ssspeak-item" label="Go" disabled="false"/> -->
+      <toolbarbutton command="cmdStop" image="chrome://ssspeak/skin/player_stop.png" class="ssspeak-item" label="Stop" disabled="false"/>
+      <toolbarbutton command="cmdPause" image="chrome://ssspeak/skin/player_pause.png"  class="ssspeak-item" label="Pause"/>
+      <toolbarbutton command="cmdResume" image="chrome://ssspeak/skin/player_play.png"  class="ssspeak-item" label="Resume" disabled="false"/>
+      <toolbarbutton command="cmdSkip" image="chrome://ssspeak/skin/player_fwd.png" class="ssspeak-item" label="Forward" disabled="false"/>
+      <toolbarseparator/>
+      <toolbarbutton command="cmdDump" image="chrome://ssspeak/skin/babelfish.png" class="ssspeak-item" label="Dump"/>
+      <progressmeter flex="1" id="pwmeter" mode="determined" value="0" hidden="true"
+	orient="horizontal" progresstext="Loading"
+	style="width: 20em;"/> 
+
+    </toolbar>
+  </toolbox>
+
+</overlay>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-omittag:nil
+sgml-shorttag:nil
+sgml-namecase-general:nil
+sgml-general-insert-case:lower
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:("/etc/sgml/catalog" "/usr/share/xemacs21/xemacs-packages/etc/psgml-dtds/CATALOG")
+sgml-local-ecat-files:("ECAT" "~/sgml/ECAT" "/usr/share/sgml/ECAT" "/usr/local/share/sgml/ECAT" "/usr/local/lib/sgml/ECAT")
+End:
+-->

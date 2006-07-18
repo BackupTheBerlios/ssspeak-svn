@@ -1,0 +1,34 @@
+#include "nsISupports.idl"
+
+interface nsIZipReader;
+interface nsISimpleEnumerator;
+
+/**
+ * An interface for loading, accessing and locking the Wiki data ZIP files. 
+ * the implementation of this interface should be a singleton and should
+ * only be accessed via the nsIProxyObjectManager from threads
+ */
+[scriptable, uuid(8ae4ce15-b49e-4a97-a145-ec209b39ab3f)]
+interface zpwkIWikiData : nsISupports
+{
+  /**
+   * pass the java package to component (called from browser chrome)
+   */
+  void initJava(in nsISupports wrappedJava, in string extensionPathUrl);
+  /**
+   * load data from directory specified by the "zipedia.zip.dir" system property
+   */
+  void load();
+  /**
+   * returns the zip file for given category name. Also increments data readers count
+   */
+  nsIZipReader getData(in string category);
+  /**
+   * decrements data readers counter
+   */
+  void releaseData();
+  /**
+   * list available categories
+   */
+  readonly attribute string categories;
+};

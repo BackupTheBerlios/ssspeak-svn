@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="**/*Test.java|jssspeak/server/tmp/|jssspeak/test/|jssspeak/trace/|tmp/|ssspeak/" kind="src" path=""/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/home/tshalif/src/mozilla/ssspeak/lib/Tidy.jar"/>
+	<classpathentry kind="lib" path="/usr/share/java/xalan2.jar"/>
+	<classpathentry kind="lib" path="/usr/share/java/xercesImpl.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

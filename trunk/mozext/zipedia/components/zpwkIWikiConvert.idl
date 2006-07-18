@@ -1,0 +1,12 @@
+#include "nsISupports.idl"
+
+[scriptable, uuid(3212358c-6f34-4c23-a0cf-d3d3da9e4e5a)]
+interface zpwkIWikiConvert : nsISupports
+{
+  /**
+   * convert wiki text to html.
+   * @param location is the page location (e.g. url), for relatvie
+   * href substitutions.
+   */
+  string convert(in string txt, in string location);
+};

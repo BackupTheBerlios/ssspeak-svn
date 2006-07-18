@@ -1,0 +1,49 @@
+AC_INIT(src/spnxRecognizer.h)
+AM_INIT_AUTOMAKE(sphinx++,0.1)
+#AM_CONFIG_HEADER(ssspeak_config.h)
+
+CFLAGS=${CFLAGS:--g -Wall}
+
+AC_ISC_POSIX
+AC_PROG_LN_S
+AC_PROG_CC
+AM_PROG_CC_STDC
+AC_HEADER_STDC
+AM_PROG_LIBTOOL
+AC_PROG_CXX
+OST_CCXX2_VERSION
+        
+
+AC_ARG_WITH(javahome, [  --with-javahome=path full path to JAVA_HOME], [JAVA_HOME=$withval], [
+        JAVA_HOME=""
+])
+
+if test -z "$JAVA_HOME"; then
+        test -n "$JAVA_HOME" || AC_MSG_ERROR("you must specify JAVA_HOME with the --with-javahome flag")
+fi
+
+        
+
+AC_ARG_WITH(sphinxincdir, [  --with-sphinxincdir=dir full path to the source directory of sphinx2], [SPHINX_INC_DIR=$withval], [
+        SPHINX_INC_DIR=/usr/include/sphinx2
+])
+
+AC_ARG_WITH(sphinxlibdir, [  --with-sphinxlibdir=dir full path to the source directory of sphinx2], [SPHINX_LIB_DIR=$withval], [
+        SPHINX_LIB_DIR=/usr/lib
+])
+
+test -f $SPHINX_INC_DIR/ad.h || AC_MSG_ERROR([sphinxincdir path does not contain  hd.h - specify sphinx src dir with --with-sphinxincdir])
+
+test -f $SPHINX_LIB_DIR/libsphinx2.la || AC_MSG_ERROR([sphinxlibdir path does not contain  libsphinx2.la - specify sphinx lib dir with --with-sphinxlibdir])
+
+
+AC_SUBST(SPHINX_INC_DIR)
+AC_SUBST(SPHINX_LIB_DIR)
+AC_SUBST(JAVA_HOME)
+
+AC_OUTPUT(
+Makefile 
+src/Makefile
+src/xpcom/Makefile
+data/Makefile
+)

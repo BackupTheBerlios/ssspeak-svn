@@ -1,0 +1,38 @@
+#! /bin/bash
+usage="$0 <sable> <mp3file>"
+
+export TERM=vt100
+
+if test $# -ne 2; then
+    echo 1>&2 $usage
+    exit 1
+fi
+
+outfile=$2;#$(echo $2 | tr ' ' _)
+lockfile=$(dirname $2)/sable2mp3.lock
+mylock=
+
+msg () {
+    (exec 1>&2; printf "sable2mp3: %s\n" "$@")
+}
+
+finish () {
+    test -n "$mylock" && rm -f $lockfile
+}
+
+trap finish 0
+
+
+msg locking ${lockfile}
+
+lockfile ${lockfile} && mylock=1
+
+msg locking OK
+
+cmd="$(dirname $0)/sable2wave $1 | $(dirname $0)/raw2mp3 > '$outfile'"
+msg executing "$cmd"
+
+eval "$cmd"
+
+
+

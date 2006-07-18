@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://zipedia/skin/" type="text/css"?>
+
+<!DOCTYPE dialog [
+<!ENTITY % brandDTD SYSTEM "chrome://global/locale/brand.dtd" >
+%brandDTD;
+<!ENTITY % aboutDTD SYSTEM "chrome://zipedia/locale/about-dialog.dtd" >
+%aboutDTD;
+]>
+
+<dialog 
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  title      = "&zipedia.about; &zipedia.about.title;"
+  id         = "about-zipedia"
+  buttons	  = "accept"
+  style = "width: &zipedia.about.width;; height: &zipedia.about.height;;">
+
+  <vbox id="about">
+    <groupbox flex="1">
+      <html:div flex="1">
+	<html:h3>&zipedia.about.title;</html:h3>
+	<hbox>
+	  <vbox>
+	    <description>&zipedia.about.version; 0.1.1</description>
+	    <label class="url simple" value="Tal Shalif" onclick='window.opener.open("http://www.shalif.com/tal");'/>
+	    <html:br/>
+	    <description>tal@shalif.com</description>
+	  </vbox>
+	  <vbox>
+	    <button label="Change Log" oncommand='window.opener.open("chrome://zipedia/contents/ChangeLog");'/>
+	  </vbox>
+	</hbox>
+
+	<html:h3>&zipedia.about.instaViewTitle;</html:h3>
+	<html:p>&zipedia.about.instaViewText; <label class="url simple" value="Pedro Fayolle" onclick='window.opener.open("http://en.wikipedia.org/wiki/User:Pilaf");'/></html:p>
+      </html:div>
+    </groupbox>
+  </vbox>
+</dialog>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-omittag:nil
+sgml-shorttag:nil
+sgml-namecase-general:nil
+sgml-general-insert-case:lower
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:("/etc/sgml/catalog" "/usr/share/xemacs21/xemacs-packages/etc/psgml-dtds/CATALOG")
+sgml-local-ecat-files:("ECAT" "~/sgml/ECAT" "/usr/share/sgml/ECAT" "/usr/local/share/sgml/ECAT" "/usr/local/lib/sgml/ECAT")
+End:
+-->

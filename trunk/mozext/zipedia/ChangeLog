@@ -1,0 +1,9 @@
+Release 0.1.1
+-------------
+	* Add about dialog
+	- Reference to Pedro Fayolle's InstaView Wiki to HTML converter
+	* Reduce package size
+	- Optimize and remove debug symbols from xpcom C++ component
+Release 0.1
+-----------
+	* Initial release uploaded to addon.mozilla.org

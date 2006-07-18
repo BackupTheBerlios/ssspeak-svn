@@ -1,0 +1,10 @@
+<!ENTITY zipedia.about.width "25em">
+<!ENTITY zipedia.about.height "25em">
+<!ENTITY zipedia.about "About">
+<!ENTITY zipedia.about.title "Offline Wikipedia Extension">
+<!ENTITY zipedia.about.version "Release version">
+<!ENTITY zipedia.about.copyright "Tal Shalif. All rights reserved.">
+<!ENTITY zipedia.about.email "Email">
+<!ENTITY zipedia.about.site             "Website"> 
+<!ENTITY zipedia.about.instaViewTitle             "InstaView - Mediawiki to HTML converter version 0.6.1"> 
+<!ENTITY zipedia.about.instaViewText             "The Wiki convertor is based on a very slightly modified JavaScript code written by"> 

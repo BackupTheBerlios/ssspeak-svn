@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!DOCTYPE dialog SYSTEM "chrome://zipedia/locale/options-dialog.dtd">
+
+<dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  id="zipedia-pref-window"
+  title="Zipedia Options"
+  buttons="accept,cancel"
+  onload="initPrefWin();"
+  style="width: &window.width;; height: &window.height;;"
+  ondialogaccept="return onPrefAccept();">
+  
+  <script type="application/x-javascript" src="chrome://zipedia/content/scripts/utilities.js"/>
+  <script type="application/x-javascript" src="chrome://zipedia/content/scripts/prefs.js"/>
+  <script type="application/x-javascript" src="chrome://zipedia/content/zipediaPrefs.js"/>
+
+  <groupbox flex="1">
+    <caption label="&label.dataOptions;"/>
+    <grid>
+      <columns>
+	<column/>
+	<column flex="1"/>
+	<column/>
+      </columns>
+      <rows>
+	<row>
+	  <label value="&label.zipLocation;" control="zip.path" /><textbox id="zip.path"/><button label="&label.Search;" oncommand="fillFileName('folder', null, [], 'zip.path');"/>
+	</row>
+      </rows>
+    </grid>
+    <html:div flex="1">
+      <html:h3>&header.CreatingYourOwnZipedia;</html:h3>
+    <html:p>&content.IfYouDontAlreadyHave; <html:input type="button" value="Generate Zipedia" onclick="openDumpDialog();"/>.
+      </html:p>
+      <html:hr/>
+      <html:strong>
+	&content.SystemRequirement;
+      </html:strong>
+    </html:div>
+  </groupbox>
+  <groupbox flex="1">
+    <caption label="&label.SearchOptions;"/>
+    <checkbox id="zip.skipTalk" label="&option.zip.skipTalk;"/>
+    <checkbox id="zip.skipSpecial" label="&option.zip.skipSpecial;"/>
+    <checkbox id="zip.skipImage" label="&option.zip.skipImage;"/>
+  </groupbox>
+</dialog>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-omittag:nil
+sgml-shorttag:nil
+sgml-namecase-general:nil
+sgml-general-insert-case:lower
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:("/etc/sgml/catalog" "/usr/share/xemacs21/xemacs-packages/etc/psgml-dtds/CATALOG")
+sgml-local-ecat-files:("ECAT" "~/sgml/ECAT" "/usr/share/sgml/ECAT" "/usr/local/share/sgml/ECAT" "/usr/local/lib/sgml/ECAT")
+End:
+-->

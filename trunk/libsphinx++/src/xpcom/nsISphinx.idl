@@ -1,0 +1,31 @@
+#include "nsISupports.idl"
+
+/**
+ * The uuid is a unique number identifying the interface normally
+ * called IID. It can be generated as follows:
+ *
+ * Windows: guidgen.exe
+ * Unix: uuidgen which comes with e2fsprogs package
+ * Mac: ???
+ * All platform: Using irc, connect to irc.mozilla.org and type in
+ *				/join #mozilla
+ *				/msg mozbot uuid
+ *
+ */
+[scriptable, uuid(d260ce3b-dc28-4f43-8471-6b5778861cd0)]
+interface nsISphinx : nsISupports
+{
+  readonly attribute string result;
+  readonly attribute string state;
+
+  void addVocabulary(in string words);
+  void removeVocabulary(in string words);
+  void recognize();
+  void ready();
+  void finish();
+  void cancel();
+  void listen();
+};
+
+
+

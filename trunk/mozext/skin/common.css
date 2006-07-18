@@ -1,0 +1,46 @@
+
+@import url("chrome://communicator/skin/");
+@import url("chrome://global/skin/");
+
+/*
+a[href^="http://"]:after { content: url('chrome://help/skin/Weblink.png'); }
+*/
+
+.url {color: blue; text-decoration: underline !important; cursor: pointer}
+
+
+/* about
+------------------------------------------------------*/
+#about-zipedia {
+  padding: 0px 0px 10px 0px;
+}
+
+#version {
+  font-weight: bold;
+  color: #9f9f9f;
+}
+
+/* misc
+------------------------------------------------------*/
+
+listitem.default {
+  font-weight: bold;
+}
+
+
+.status {
+  -moz-appearance: statusbar;
+  border-top: 1px solid ThreeDLightShadow;
+  border-left: 1px solid ThreeDShadow;
+  border-right: 1px solid ThreeDHighlight;
+  border-bottom: 1px solid ThreeDHighlight;
+  background-color: -moz-Dialog;
+  font: message-box;
+}
+
+
+tab[selected="true"] {
+	font-weight: bold;
+}
+
+

@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+  <Description about="urn:mozilla:install-manifest">
+
+    <em:name>Zipedia</em:name>
+    <em:id>zipedia@nargila.org</em:id>
+<!--     <em:id>{dbe326ae-c3bf-47e3-877a-65ba2648234c}</em:id> -->
+    <em:version>0.1.1</em:version>
+    <em:creator>Tal Shalif</em:creator>
+    <em:aboutURL>chrome://zipedia/content/about-dialog.xul</em:aboutURL>
+    <em:type>2</em:type>
+    <em:description>Wikipedia in a Zip file</em:description>
+    <em:optionsURL>chrome://zipedia/content/options-dialog.xul</em:optionsURL>
+    <em:homepageURL>http://www.shalif.com/tal/</em:homepageURL>
+
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>1.5</em:minVersion>
+        <em:maxVersion>1.6</em:maxVersion>
+      </Description>
+    </em:targetApplication> 
+
+  </Description>
+
+    <em:file>
+      <Description about="urn:mozilla:extension:file:.">
+        <em:package>content/zipedia/</em:package>
+        <em:locale>locale/en-US/zipedia/</em:locale>
+      </Description>
+    </em:file>
+</RDF>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-omittag:nil
+sgml-shorttag:nil
+sgml-namecase-general:nil
+sgml-general-insert-case:lower
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:("/etc/sgml/catalog" "/usr/share/xemacs21/xemacs-packages/etc/psgml-dtds/CATALOG")
+sgml-local-ecat-files:("ECAT" "~/sgml/ECAT" "/usr/share/sgml/ECAT" "/usr/local/share/sgml/ECAT" "/usr/local/lib/sgml/ECAT")
+End:
+-->

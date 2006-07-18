@@ -1,0 +1,42 @@
+
+#include "nsISupports.idl"
+
+interface nsISynthSrvListener;
+
+/**
+ * The uuid is a unique number identifying the interface normally
+ * called IID. It can be generated as follows:
+ *
+ * Windows: guidgen.exe
+ * Unix: uuidgen which comes with e2fsprogs package
+ * Mac: ???
+ * All platform: Using irc, connect to irc.mozilla.org and type in
+ *				/join #mozilla
+ *				/msg mozbot uuid
+ *
+ */
+[scriptable, uuid(6daf22ef-67cc-437c-8922-e8b426c6ed4d)]
+interface nsISynthesizer : nsISupports
+{
+
+  const long STATE_NONE = 0;
+  const long STATE_CONNECTED = 0x1;
+  const long STATE_STOPPED = 0x2;
+
+  readonly attribute long state;
+  attribute string audioSaveDir;
+  attribute nsISynthSrvListener svrListener;
+
+  void synth(in string ssmlpath);
+  void dump(in string ssmlpath, in string outpath);
+  void stop();
+  void shutdown();
+  void pause();
+  void resume();
+
+  void initSocket(in string host, in long port, in nsISynthSrvListener svrListener);
+  void initFifos(in string toserver, in string fromserver, in nsISynthSrvListener svrListener);
+};
+
+
+

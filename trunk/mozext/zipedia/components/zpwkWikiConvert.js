@@ -1,0 +1,1 @@
+../xpcom/wikiconv/zpwkWikiConvert.js

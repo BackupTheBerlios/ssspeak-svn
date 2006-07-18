@@ -1,0 +1,18 @@
+#! /bin/bash
+
+usage="usage: $0 <sable>";
+
+test -n "$1" || {
+   echo $usage
+   exit
+}
+
+# test $# -eq 1 || {
+#     echo $usage
+#     exit
+# }
+
+cd $(dirname $0)
+
+./sable2wav --tts $1 | ./sablewav-play.sh
+

@@ -1,0 +1,10 @@
+<speak><metadata><mark-index/></metadata><audio src="file:/home/tshalif/src/mozilla/talext/content/talext/helpers/sound/html-title.wav"/><emphasis level="strong">Bula Tal</emphasis>.<break/>
+
+  
+    <audio src="file:/home/tshalif/src/mozilla/talext/content/talext/helpers/sound/header.wav"/><emphasis level="strong">T1</emphasis>.<break/>
+    <mark name="l1"/>link one
+    <mark name="l2"/>link two
+    <mark name="l3"/>link three
+    <mark name="l4"/>link four
+    <mark name="l5"/>link five
+  </speak>

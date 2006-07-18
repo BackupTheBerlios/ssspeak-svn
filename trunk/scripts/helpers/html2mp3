@@ -1,0 +1,25 @@
+#! /bin/sh
+
+usage="usage: $0 <url> <outfile>"
+
+test $# -ne 2 && echo 1>&2 $usage && exit 1
+
+tmpdir=$(mktemp -d)
+
+finish () {
+    rm -rf $tmpdir
+    true
+}
+
+trap finish 0
+
+export TMPDIR=$tmpdir
+export TMP=$tmpdir
+export TEMP=$tmpdir
+
+. $(dirname $0)/env.sh
+
+echo $CLASSPATH
+
+java jssspeak.progs.HtmlDump "$1" | $(dirname $0)/raw2mp3 > "$2"
+

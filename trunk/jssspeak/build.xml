@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="compile">
+  <target name="init">
+    <tstamp/>
+    <property name="build.dir" value="build/class"/>
+    <property name="optimize" value="off"/>
+    <property name="apidocdir" value="doc/apidocs"/>
+    <property name="debug" value="on"/>
+    <property name="deprecation" value="on"/>
+    <property name="src.dir" value="src"/>
+<!--     <property name="src.generated.dir" value="generated"/> -->
+    <property name="classpath" value="lib/aspectjrt.jar:lib/Tidy.jar:lib/jsapi.jar:/usr/share/java/junit.jar:lib/xalan2.jar:lib/xercesImpl.jar:lib/xml-apis.jar:lib/serializer.jar"/>
+
+    <available property="junit.present" classname="junit.framework.TestCase"/>
+  </target>
+
+
+  <!-- ================================================================== -->
+  <!--            The pattern for the support files that need             -->
+  <!--                to be copied when compiling classes                 -->
+  <!-- ================================================================== -->
+  <patternset id="support.files">
+    <include name="**/*.xsd" />
+    <include name="**/JavaHelpSearch/*" />
+    <include name="**/*.xml" />
+    <include name="**/*.hs" />
+    <include name="**/*.jhm" />
+    <include name="**/*.html" />
+    <include name="**/*.png" />
+    <include name="**/*.xsl" />
+    <include name="**/*.scm" />
+    <include name="**/*.properties" />
+    <include name="**/*.dtd" />
+  </patternset>  
+
+  <path id="jars-aj">
+    <fileset dir="lib">
+      <include name="aspectj*.jar"/>
+    </fileset>
+  </path>
+
+  <path id="jars-xslt">
+    <fileset dir="/usr/share/java">
+    </fileset>
+  </path>
+
+  <path id="javac-cp">
+    <path refid="jars-aj"/>
+    <path refid="jars-xslt"/>
+    <path location="lib/Tidy.jar"/>
+    <path location="lib/junit.jar"/>
+    <path location="lib/jsapi.jar"/>
+  </path>
+
+  <path id="runtime-cp">
+    <path refid="javac-cp"/>
+    <path location="build/class"/>
+  </path>
+
+  <path id="runtime-aj-cp">
+    <path refid="javac-cp"/>
+    <path location="build/aspect"/>
+  </path>
+
+
+  <target name="aspect" depends="init">
+    <java fork="yes" classname="${main.class}">
+      <classpath refid="runtime-aj-cp"/>
+    </java>
+  </target>
+
+
+  <target name="java" depends="init">
+    <java fork="yes" classpathref="runtime-cp" classname="${main.class}"/>
+  </target>
+
+  <target name="synthserver" depends="init">
+    <java fork="yes" classpathref="runtime-cp" classname="jssspeak.server.SsmlSynthSimpleServer">
+      <arg line="5252"/>
+    </java>
+  </target>
+
+  <target depends="init" name="junit">
+    <java fork="yes" classname="jssspeak.test.AllTests">
+      <classpath>
+        <pathelement path="${classpath}"/>
+        <pathelement location="build/aspect"/>
+      </classpath>
+      <jvmarg value="-ea"/>
+    </java>
+  </target>
+
+  <target depends="init" name="test">
+    <java fork="yes" classname="${main.class}">
+      <classpath refid="runtime-cp"/>
+      <jvmarg value="-ea"/>
+    </java>
+  </target>
+
+<!--   <target depends="init" name="idl"> -->
+<!--     <mkdir dir="generated"/> -->
+<!--     <exec executable="idlj"> -->
+<!--       <arg line="-td generated -fall ../cssspeak/src/synth/ISynthesizer.idl"/> -->
+<!--     </exec> -->
+<!--   </target> -->
+
+  <target depends="compile" name="aspectc">
+    <copy todir="build/aspect">
+      <fileset dir="src">
+        <patternset refid="support.files" />
+      </fileset>
+    </copy>   
+
+    <exec executable="${basedir}/ajc.sh">
+      <arg line="-1.5 -inpath ${build.dir} -sourceroots src/jssspeak/trace:src/jssspeak/test -d build/aspect"/>
+    </exec>
+
+    <!--     <ajc debug="true" deprecation="true" destdir="build/aspect" srcdir="${build.dir}"> -->
+    <!--       <classpath refid="runtime-cp"/> -->
+    <!--     </ajc> -->
+  </target>
+
+  <target name="classpath" depends="init">
+    <echo message="${classpath}"/>
+  </target>
+
+  <target name="compile" depends="init">
+    <mkdir dir="${build.dir}"/>
+    <javac destdir="${build.dir}" 
+      classpath="${classpath}"
+      debug="${debug}" 
+      optimize="${optimize}" 
+      deprecation="${deprecation}" source="1.4" target="1.4">
+
+      <src path="${src.dir}"/>
+<!--       <src path="${src.generated.dir}"/> -->
+      <exclude name="**/trace/*"/>
+      <exclude name="**/tmp/**"/>
+      <exclude name="**/test/*"/>
+      <exclude name="**/*AJ.java"/>
+<!--       <compilerarg line="-Xlint:unchecked"/> -->
+    </javac>
+
+    <copy todir="${build.dir}">
+      <fileset dir="src">
+        <patternset refid="support.files" />
+      </fileset>
+    </copy>   
+
+<!--     <rmic idl="yes" iiop="yes" includes="**/Rmt*Impl.class" base="${build.dir}"/> -->
+  </target>
+
+  <target name="dist" depends="compile" description="generate the jar file" >
+    <jar jarfile="jssspeak.jar" basedir="${build.dir}">
+      <manifest>
+	<attribute name="Class-Path" value="Tidy.jar"/>
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="clean">
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="build" />
+  </target>
+
+</project>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-omittag:nil
+sgml-shorttag:nil
+sgml-namecase-general:nil
+sgml-general-insert-case:lower
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:("/etc/sgml/catalog" "/usr/share/xemacs21/xemacs-packages/etc/psgml-dtds/CATALOG")
+sgml-local-ecat-files:("ECAT" "~/sgml/ECAT" "/usr/share/sgml/ECAT" "/usr/local/share/sgml/ECAT" "/usr/local/lib/sgml/ECAT")
+End:
+-->

@@ -1,0 +1,4 @@
+#! /bin/sh
+export TERM=vt100
+
+sox -t raw -r 16000 -s -w - -t wav -v 2.0 -  | lame --quiet -

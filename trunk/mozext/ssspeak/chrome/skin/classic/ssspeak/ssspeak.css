@@ -1,0 +1,277 @@
+
+@import url("chrome://communicator/skin/");
+@import url("chrome://global/skin/");
+/* @import url("chrome://codetch/skin/toolbar.css"); */
+
+/*
+a[href^="http://"]:after { content: url('chrome://help/skin/Weblink.png'); }
+*/
+
+.url {color: blue; text-decoration: underline !important; cursor: pointer}
+
+
+/* about
+------------------------------------------------------*/
+#aboutSsspeak {
+  padding: 0px 0px 10px 0px;
+}
+
+#aboutCase{
+   /* background: url("chrome://codetch/skin/about.png") #fff no-repeat; */
+   padding: 7px;
+   padding-top: 212px;
+   color: #000000;
+}
+
+#version {
+  font-weight: bold;
+  color: #9f9f9f;
+}
+
+#codetch-find {
+	padding: 10px;
+}
+
+/* new
+------------------------------------------------------*/
+
+#new-panels  tree{
+	border: 0 !important;
+	margin: 0 !important;
+}
+
+.replacepane .find, .findpane .replace {
+	visibility: collapse;
+}
+.replacepane .find-space, .findpane .replace-space {
+	visibility: hidden;
+}
+.findpane .find, .replacepane .replace {
+	visibility: visible;
+}
+
+/* sidebar
+------------------------------------------------------*/
+#toolboxPanel{
+	min-width: 150px;
+}
+
+#toolboxPanel tabpanels, #editor-arena tabpanels{
+-moz-appearance: none;
+	margin:0;
+	border: 0;
+}
+#toolboxPanel splitter{
+	border: 0;
+}
+#sidebar-box {
+  background-color: Window;
+}
+
+#file-root-item {
+	list-style-image: url("chrome://codetch/skin/newicons/folder.png");
+	-moz-image-region: rect(0px, 16px, 16px, 0px); /*()*/
+}
+
+.panel-box tree, .panel-box > *{
+	margin:0;
+	border: 0;
+}
+
+/* editor area
+------------------------------------------------------*/
+
+#editor-tabs tab{
+	max-width: 250px;
+	min-width: 30px;
+}
+#editor-tabs, #insert-tabs  {
+	padding-top: 1px;
+	padding-left: 6px;
+	padding-right: 6px;
+}
+#insert-panels toolbox{
+	-moz-box-orient: horizontal;
+-moz-appearance: none !important;
+}
+
+#insert-panels toolbar{
+-moz-appearance: none !important;
+	margin:0 !important;
+	border: 0 !important;
+	min-height: 34px;
+}
+#insert-tabbox colorpicker[type="button"] {
+	-moz-appearance: none !important;
+	visibility: collapse;
+	border: 0;
+	padding: 0;
+	height: 12px;
+	width: 6px;
+}
+colorpicker[type="button"] popup{
+	visibility: visible;
+}
+#editor-toolbox .toolbarbutton-1{
+	-moz-box-align: center;
+	-moz-box-orient: vertical;
+}
+toolbarbutton[disabled=true] image{
+	-moz-opacity: 0.3;
+}
+
+tabbox, tabpanels, tabpanel{
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+#support-panels .panel-box tabpanels{
+	-moz-appearance: none;
+	margin:0;
+	border: 0;
+}
+/* buttons
+------------------------------------------------------*/
+
+.browse-button, #find-dir-btn {
+	list-style-image: url("chrome://codetch/skin/newicons/open.png");
+	-moz-image-region: rect(0px, 16px, 16px, 0px); /*()*/
+}
+
+.reload-button, #reload-dir-btn {
+	list-style-image: url("chrome://codetch/skin/newicons/reload.png");
+	-moz-image-region: rect(0px, 16px, 16px, 0px); /*()*/
+}
+.back-button {
+	list-style-image: url("chrome://codetch/skin/newicons/back.png");
+	-moz-image-region: rect(0px, 16px, 16px, 0px); /*()*/
+}
+.next-button {
+	list-style-image: url("chrome://codetch/skin/newicons/next.png");
+	-moz-image-region: rect(0px, 16px, 16px, 0px); /*()*/
+}
+
+/* grippy/spitter
+------------------------------------------------------*/
+splitter > grippy {
+  display: -moz-box !important;
+}
+splitter {
+}
+
+
+/* misc
+------------------------------------------------------*/
+
+listitem.default {
+  font-weight: bold;
+}
+
+
+#utility-editor {
+	visibility: hidden;
+}
+
+
+.status {
+  -moz-appearance: statusbar;
+  border-top: 1px solid ThreeDLightShadow;
+  border-left: 1px solid ThreeDShadow;
+  border-right: 1px solid ThreeDHighlight;
+  border-bottom: 1px solid ThreeDHighlight;
+  background-color: -moz-Dialog;
+  font: message-box;
+}
+
+
+tab[selected="true"] {
+	font-weight: bold;
+}
+
+
+/* bindings
+------------------------------------------------------*/
+toolbar {
+	-moz-binding: url("chrome://codetch/content/toolbarBindings.xml#toolbarBtnToggle");
+}
+
+.floater {
+  -moz-binding: url("chrome://codetch/content/floaterBindings.xml#floater");
+}
+#editor-tabs {
+	-moz-binding: url("chrome://codetch/content/editorboxBindings.xml#editorbox");
+}
+
+.panel-box {
+	-moz-binding: url("chrome://codetch/content/panelBindings.xml#panelBox");
+}
+.editor-box {
+  -moz-binding: url("chrome://codetch/content/editorBindings.xml#editorBox");
+	-moz-box-orient: vertical;
+}
+
+/* ::::: splitter grippy ::::: */
+  
+splitter > grippy {
+  display: -moz-box !important;
+  cursor: pointer;
+  border-top: 1px solid ThreeDShadow;
+  border-bottom: 1px solid ThreeDShadow;
+  min-width: 5px;
+  min-height: 55px;
+  background-color: ThreeDShadow;
+  background-repeat: no-repeat;
+}
+
+splitter > grippy:hover {
+  background-color: #CCCCFF;
+}
+
+splitter[orient="vertical"] > grippy {
+  border-top: none;
+  border-right: 1px solid ThreeDShadow;
+  border-bottom: none;
+  border-left: 1px solid ThreeDShadow;;
+  min-width: 55px!important;
+  min-height: 5px!important;
+}
+  
+/* ..... normal state ..... */
+
+/* vertical grippies */
+splitter[collapse="before"] > grippy {
+  background-image: url("chrome://codetch/skin/splitter/grip-vrt-before.gif")!important;
+}
+
+splitter[collapse="after"] > grippy {
+  background-image: url("chrome://codetch/skin/splitter/grip-vrt-after.gif")!important;
+}
+
+/* horizontal grippies */
+splitter[collapse="before"][orient="vertical"] > grippy {
+  background-image: url("chrome://codetch/skin/splitter/grip-hrz-before.gif")!important;
+}  
+
+splitter[collapse="after"][orient="vertical"] > grippy {
+  background-image: url("chrome://codetch/skin/splitter/grip-hrz-after.gif")!important;
+}  
+  
+/* ..... collapsed state ..... */
+
+/* vertical grippies */
+splitter[collapse="before"][state="collapsed"] > grippy {
+  background-image: url("chrome://codetch/skin/splitter/grip-vrt-after.gif")!important;
+}
+
+splitter[collapse="after"][state="collapsed"] > grippy {
+  background-image: url("chrome://codetch/skin/splitter/grip-vrt-before.gif")!important;
+}
+
+/* horizontal grippies */
+splitter[collapse="before"][state="collapsed"][orient="vertical"] > grippy {
+  background-image: url("chrome://codetch/skin/splitter/grip-hrz-after.gif")!important;
+}  
+
+splitter[collapse="after"][state="collapsed"][orient="vertical"] > grippy {
+  background-image: url("chrome://codetch/skin/splitter/grip-hrz-before.gif")!important;
+}  

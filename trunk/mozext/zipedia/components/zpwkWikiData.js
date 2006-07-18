@@ -1,0 +1,1 @@
+../xpcom/wikidata/zpwkWikiData.js

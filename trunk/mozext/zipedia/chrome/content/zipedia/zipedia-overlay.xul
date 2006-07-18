@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<overlay id="ssspeakOverlay" 
+  xmlns:html="http://www.w3.org/1999/xhtml"  
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script type="application/x-javascript" src="chrome://zipedia/content/scripts/utilities.js"/>
+  <script type="application/x-javascript">
+    <![CDATA[
+    Components.classes["@nargila.org/wiki-data;1"].createInstance(Components.interfaces.zpwkIWikiData).initJava({wrappedJSObject: java}, getExtensionPath("zipedia"));
+    ]]>
+  </script>         
+</overlay>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-omittag:nil
+sgml-shorttag:nil
+sgml-namecase-general:nil
+sgml-general-insert-case:lower
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:("/etc/sgml/catalog" "/usr/share/xemacs21/xemacs-packages/etc/psgml-dtds/CATALOG")
+sgml-local-ecat-files:("ECAT" "~/sgml/ECAT" "/usr/share/sgml/ECAT" "/usr/local/share/sgml/ECAT" "/usr/local/lib/sgml/ECAT")
+End:
+-->

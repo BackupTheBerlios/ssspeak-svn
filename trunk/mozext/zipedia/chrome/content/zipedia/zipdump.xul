@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<!DOCTYPE wizard SYSTEM "chrome://zipedia/locale/zipdump.dtd">
+
+<wizard id="zipdumpWizard"
+  title="&zipdump.title;"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  onwizardcancel="return onCancel();"
+  onwizardfinish="onFinish();"
+  style="width: &zipdump.width;;  height: &zipdump.height;;"
+  onload="initWizard();">
+
+
+  <script type="application/x-javascript" src="chrome://zipedia/content/scripts/utilities.js"/>
+  <script type="application/x-javascript" src="chrome://zipedia/content/scripts/prefs.js"/>
+  <script type="application/x-javascript" src="chrome://zipedia/content/zipediaPrefs.js"/>
+  <script type="application/x-javascript" src="chrome://zipedia/content/zipdump.js"/>
+
+
+  <wizardpage label="&zipdump.page1.title;">
+    <html:div flex="1">
+      <html:strong>&zipdump.page1.IfYouHaveAlreadyDownloaded;</html:strong>
+      <html:hr/>
+      <html:p>&zipdump.page1.youNeedToDownloadWikipediaXML;<html:input type="button" value="Open Site" onclick="window.opener.openBrowserURL('http://download.wikimedia.org/');"/> &zipdump.page1.youProbablyWantThisDownload; <html:input type="button" value="&zipdump.page1.recommendedDownload;" onclick="window.opener.openBrowserURL('&zipdump.page1.recommendedDownloadURL;');"/></html:p>
+    </html:div>
+  </wizardpage>
+
+  <wizardpage label="&zipdump.page2.title;"
+    onpageadvanced="return onDumpPathsPageAdvanced();">
+    <description id="uninstallText" class="text">
+      &zipdump.page2.whereIsLocalCopyOfWikipediaXMLDump;
+    </description>
+    <separator/>
+    <grid>
+      <columns>
+	<column/>
+	<column flex="1"/>
+	<column/>
+      </columns>
+      <rows>
+	<row>
+	  <label value="&zipdump.page2.dumppath;" control="dump.path" /><textbox id="dump.path"/><button id="findDumpPath" label="Search" oncommand="fillFileName('open', null, [['Wiki Dump', 'xml.bz2']], 'dump.path');" />
+	</row>
+	<row>
+	  <label value="&zipdump.page2.zippath;" control="zip.path" /><textbox id="zip.path"/><button id="findOutpath" label="&zipdump.common.Search;" oncommand="fillFileName('folder', 'zipedia.zip', [], 'zip.path');" />
+	</row>
+      </rows>
+    </grid>
+  </wizardpage>
+
+  <wizardpage label="&zipdump.dumpoptions.title;">
+    <groupbox flex="1">
+      <caption label="&zipdump.dumpoptions.group.filters;"/>
+      <checkbox id="zip.skipTalk" label="&zipdump.options.zip.skipTalk;"/>
+      <checkbox id="zip.skipUser" label="&zipdump.options.zip.skipUser;"/>
+      <checkbox id="zip.skipImage" label="&zipdump.options.zip.skipImage;"/>
+    </groupbox>
+    <groupbox flex="1">
+      <caption label="&zipdump.dumpoptions.group.compression;"/>
+      <radiogroup id="zip.compression">
+	<radio label="&zipdump.options.zip.best;" value="best"/>     
+	<radio label="&zipdump.options.zip.speed;" value="speed"/>     
+	<radio label="&zipdump.options.zip.default;" value="undefined"/>     
+      </radiogroup>
+    </groupbox>
+
+  </wizardpage>
+
+  <wizardpage label="&zipdump.page4.title;"
+    onpageshow="zipdump();">
+    <description class="text">&zipdump.page4.ThisMayTakeAwhile;</description>
+    <separator/>
+    <grid>
+      <columns>
+	<column/>
+	<column flex="1"/>
+	<column/>
+      </columns>
+      <rows>
+	<row>
+	  <label id="progressTxt" value="0%"/><progressmeter id="dumpProgress" value="0"/>
+	</row>
+      </rows>
+    </grid>
+    <separator/>
+    <html:div flex="1">
+      <html:strong id="ETA">???</html:strong>
+      <html:hr/>
+      <html:strong>
+	<html:p>&zipdump.page4.Note;</html:p>
+	&zipdump.page4.DumpProcessMayTakeLonger;
+      </html:strong>
+    </html:div>
+  </wizardpage>
+</wizard>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-omittag:nil
+sgml-shorttag:nil
+sgml-namecase-general:nil
+sgml-general-insert-case:lower
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:("/etc/sgml/catalog" "/usr/share/xemacs21/xemacs-packages/etc/psgml-dtds/CATALOG")
+sgml-local-ecat-files:("ECAT" "~/sgml/ECAT" "/usr/share/sgml/ECAT" "/usr/local/share/sgml/ECAT" "/usr/local/lib/sgml/ECAT")
+End:
+-->

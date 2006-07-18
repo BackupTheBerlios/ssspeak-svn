@@ -1,0 +1,12 @@
+<!ENTITY window.width "30em">
+<!ENTITY window.height "35em">
+<!ENTITY label.dataOptions "Zipedia data file options">
+<!ENTITY label.zipLocation "ZIP File">
+<!ENTITY label.Search "Search">
+<!ENTITY header.CreatingYourOwnZipedia "Creating your own Zipedia">
+<!ENTITY content.IfYouDontAlreadyHave "If you don't already have the 'zipedia.zip' data file, click on the following button to start the generation process:">
+<!ENTITY content.SystemRequirement "Important: you will needs lots of memory (> 200M) and disk space (~3.5G) if you are converting the English wikipedia.">
+<!ENTITY label.SearchOptions "Search options">
+<!ENTITY option.zip.skipTalk "Don't show talk pages in results">
+<!ENTITY option.zip.skipSpecial "Don't show special pages in results">
+<!ENTITY option.zip.skipImage "Don't show image descriptors in results">

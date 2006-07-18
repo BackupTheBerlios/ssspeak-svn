@@ -1,0 +1,4 @@
+overlay    chrome://browser/content/browser.xul chrome://zipedia/content/zipedia-overlay.xul
+content    zipedia chrome/content/zipedia/
+locale	zipedia en-US	chrome/locale/en-US/zipedia/
+skin zipedia  classic/1.0  chrome/skin/classic/zipedia/

@@ -1,0 +1,8 @@
+2005-11-13  Tal Shalif  <tshalif@zork>
+
+	* generate SWIG Java binding
+
+2005-11-12  Tal Shalif  <tshalif@zork>
+
+	* build and test stand-alone sphinx++ recognition binding
+

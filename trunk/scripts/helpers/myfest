@@ -1,0 +1,93 @@
+#! /bin/sh
+"true"; exec /home.new/tshalif/src/ws/festival/bin/festival --script $0 $*
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-*-mode:scheme-*-
+;;                                                                       ;;
+;;                Centre for Speech Technology Research                  ;;
+;;                     University of Edinburgh, UK                       ;;
+;;                       Copyright (c) 1996,1997                         ;;
+;;                        All Rights Reserved.                           ;;
+;;                                                                       ;;
+;;  Permission is hereby granted, free of charge, to use and distribute  ;;
+;;  this software and its documentation without restriction, including   ;;
+;;  without limitation the rights to use, copy, modify, merge, publish,  ;;
+;;  distribute, sublicense, and/or sell copies of this work, and to      ;;
+;;  permit persons to whom this work is furnished to do so, subject to   ;;
+;;  the following conditions:                                            ;;
+;;   1. The code must retain the above copyright notice, this list of    ;;
+;;      conditions and the following disclaimer.                         ;;
+;;   2. Any modifications must be clearly marked as such.                ;;
+;;   3. Original authors' names are not deleted.                         ;;
+;;   4. The authors' names are not used to endorse or promote products   ;;
+;;      derived from this software without specific prior written        ;;
+;;      permission.                                                      ;;
+;;                                                                       ;;
+;;  THE UNIVERSITY OF EDINBURGH AND THE CONTRIBUTORS TO THIS WORK        ;;
+;;  DISCLAIM ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING      ;;
+;;  ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT   ;;
+;;  SHALL THE UNIVERSITY OF EDINBURGH NOR THE CONTRIBUTORS BE LIABLE     ;;
+;;  FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES    ;;
+;;  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN   ;;
+;;  AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION,          ;;
+;;  ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF       ;;
+;;  THIS SOFTWARE.                                                       ;;
+;;                                                                       ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;           Author:  Alan W Black
+;;;           Date:    November 1997
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;;  Text to a single waveform like festival_client but without
+;;;  starting hte server
+;;;
+
+;;; Because this is a --script type file I has to explicitly
+;;; load the initfiles: init.scm and user's .festivalrc
+(load (path-append libdir "init.scm"))
+
+;;; No gc messages
+(gc-status nil)
+
+;;;
+;;; Redefine what happens to utterances during text to speech 
+;;;
+;(set! tts_hooks (list utt.synth save_record_wave))
+
+;(define (save_record_wave utt)
+;"Saves the waveform and records its so it can be joined into a 
+;a single waveform at the end."
+;(print "bula")
+;(utt.save.wave utt "-")
+;utt)
+
+
+(define (myfest_usage)
+  (format stderr "usage: %s <sable_file> <prog>\n" "myfest")
+  (quit))
+
+(define (main)
+
+  (set! infile (car argv))
+  (set! argv (cdr argv))
+  (set! prog (car argv))
+  (set! argv (cdr argv))
+ 
+  (if (or
+       (not infile)
+       (not prog)
+       (cdr argv))
+       (myfest_usage))
+       
+  (set! command (format nil "%s $FILE" prog))
+  (Parameter.set 'Audio_Method 'Audio_Command)
+  ;(Parameter.set 'Audio_Required_Rate 16000)
+  (Parameter.set 'Audio_Required_Format 'raw)
+  (Parameter.set 'Audio_Command command)
+  ;(Parameter.set 'Audio_Command "/bin/true")
+  (audio_mode 'async)
+
+  ;(set! tts_hooks (list utt.synth save_record_wave))
+  (tts_file infile 'sable)
+)
+
+;;;  Do the work
+(main)

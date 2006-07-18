@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://ssspeak/skin/" type="text/css"?>
+
+<!DOCTYPE dialog [
+<!ENTITY % brandDTD SYSTEM "chrome://global/locale/brand.dtd" >
+%brandDTD;
+<!ENTITY % ssspeakDTD SYSTEM "chrome://ssspeak/locale/ssspeakAbout.dtd" >
+%ssspeakDTD;
+]>
+
+<dialog 
+   xmlns      = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+   xmlns:xbl  = "http://www.mozilla.org/xbl"
+   title      = "&ssspeak.about; &ssspeak.window-title;"
+   id         = "aboutSsspeak"
+   buttons	  = "accept" 
+   style	  = "width: 299px">
+
+<vbox id="aboutCase">
+<label id="version" value="&ssspeak.aboutVersion; 0.1"/>
+<description id="copyright">&#169;2005 &ssspeak.copyrightText;</description>
+<spacer flex="1" />
+<description id="about-email">&ssspeak.aboutEmail;: <label value="tal@shalif.com" /></description>
+<description id="about-site">&ssspeak.aboutSite;: <label class="url plain" onclick="window.opener.openBrowserURL('http://www.shalif.com/tal');" value="http://www.shalif.com/tal" /></description>
+<description><label class="url plain" onclick="window.opener.openBrowserURL('http://www.mozilla.org/projects/help-viewer/');" value="Mozilla Help Viewer Project"/></description>
+</vbox>
+</dialog>

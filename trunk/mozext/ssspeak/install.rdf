@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+  <Description about="urn:mozilla:install-manifest">
+
+    <em:name>Ssspeak</em:name>
+    <em:id>ssspeak@nargila.org</em:id>
+<!--     <em:id>{dbe326ae-c3bf-47e3-877a-65ba2648234c}</em:id> -->
+    <em:version>0.1</em:version>
+    <em:creator>Tal Shalif</em:creator>
+    <em:aboutURL>chrome://ssspeak/content/about-dialog.xul</em:aboutURL>
+    <em:description>Speach enabling your firefox browser</em:description>
+    <em:homepageURL>http://www.shalif.com/tal/</em:homepageURL>
+    <em:optionsURL>chrome://ssspeak/content/options-dialog.xul</em:optionsURL>
+
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>0.8</em:minVersion>
+        <em:maxVersion>1.9</em:maxVersion>
+      </Description>
+    </em:targetApplication> 
+
+    <em:file>
+      <Description about="urn:mozilla:extension:file:.">
+        <em:package>content/ssspeak/</em:package>
+        <em:locale>locale/en-US/ssspeak/</em:locale>
+	<em:skin>skin/classic/ssspeak/</em:skin>
+      </Description>
+    </em:file>
+  </Description>
+
+</RDF>

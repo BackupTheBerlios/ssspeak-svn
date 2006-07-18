@@ -1,0 +1,10 @@
+#
+# Chrome Manifest file (for Firefox 1.1+)
+#
+
+# WARNING: don't forget the '/' at the end of the paths or it won't work!!
+
+overlay    chrome://browser/content/browser.xul chrome://ssspeak/content/ssspeak.xul
+content    ssspeak chrome/content/ssspeak/
+skin       ssspeak  classic/1.0  chrome/skin/classic/ssspeak/
+locale	ssspeak en-US	chrome/locale/en-US/ssspeak/

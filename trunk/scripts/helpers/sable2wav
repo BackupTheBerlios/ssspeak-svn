@@ -1,0 +1,130 @@
+#! /bin/sh
+usage="usage: $0 [--tts] <inputfile>"
+
+dir=$(dirname $0)
+
+. $(dirname $0)/env.sh
+
+usage () {
+    echo 1>&2 $usage
+    exit 1
+}
+
+mode=callback
+
+while test -n "$1";do
+    case "$1" in
+        --tts) mode=tts;
+	    ;;
+
+        -*) usage;;
+        *) break;;
+    esac
+
+    shift
+
+done
+
+test $# -eq 1 || usage
+
+log "FESTIDIR=$FESTIDIR"
+log "pwd=$(pwd)"
+log "called with args '$@'"
+
+result_pipe=sable2wav.fifo
+
+
+fifolock=$(dirname $result_pipe)/$(basename $result_pipe).lock
+
+msg () {
+    log "$@"
+    echo 1>&2 "$@"
+}
+
+handleWav () {
+    log handling wav $1
+
+    ln $1 $1.hlnk
+
+    log writing $1.hlnk to pipe $result_pipe
+    echo $1.hlnk > $result_pipe
+
+    msg client: handling wav $1
+    exit
+}
+
+readfiles () {
+    while true; do
+        wav=
+        msg read wav:
+        read wav < $result_pipe
+        msg read wav: "($wav)"
+        #rm -f $fifolock
+            case "$wav" in
+                "") continue;;
+                "@EOF@") break;;
+                *) echo $wav;;
+            esac
+        #else
+         #   break;
+        #fi
+
+    done
+    msg exiting "readfiles()"
+}
+
+case "$mode" in
+    callback) handleWav $1;;
+    tts) true;;
+    *) usage;;
+esac
+
+
+# export TMPDIR=${TMPDIR:-$tmpdir}
+# export TMP=${TMP:-$tmpdir}
+# export TEMP=${TEMP:-$tmpdir}
+
+tmpdir=${TMPDIR:-/tmp}/sable2wav
+
+mkdir -p $tmpdir
+
+log using tmpdir $tmpdir
+
+runfestivalpid=
+readfilespid=
+
+cleantts () {
+    msg cleaning tts: killing $runfestivalpid $readfilespid
+    test -n "$runfestivalpid" && kill $runfestivalpid >& /dev/null
+    rm -f *.$$ $result_pipe
+    #rm -rf $tmpdir
+}
+
+
+runfestival () {
+    log dir=$dir
+    $dir/festistart.sh
+
+    log running ${FESTIDIR}/bin/festival_client with --aucommand $dir/sable2wavcallback.sh
+
+    ${FESTIDIR}/bin/festival_client --aucommand "$dir/sable2wavcallback.sh $tmpdir \$FILE $result_pipe" --otype raw --async --ttw --tts_mode sable $1
+    msg exiting "runfestival()"
+}
+
+rm -f $result_pipe
+log "creating $result_pipe"
+mkfifo $result_pipe
+runfestival $1 &
+runfestivalpid=$!
+
+readfiles &
+
+readfilespid=$!
+    
+trap cleantts 0
+
+wait $runfestivalpid
+
+echo "@EOF@" > $result_pipe
+
+wait $readfilespid
